@@ -1,0 +1,465 @@
+/* ============================================================
+   auth.css — S.T.A.R Learning Path Auth Pages
+   Màu đồng bộ với src/components/theme.js (iOS 18 minimal)
+   ============================================================ */
+
+/* ---- Root Variables (khớp theme.js) ---- */
+:root {
+  --clr-primary:      #0891B2;
+  --clr-primary-dark: #0E7490;
+  --clr-primary-light:#22D3EE;
+  --clr-secondary:    #38BDF8;
+  --clr-secondary-dark:#0284C7;
+  --clr-accent:       #EA580C;
+  --clr-bg-page:      #F8FAFC;
+  --clr-bg-paper:     #FFFFFF;
+  --clr-text:         #0F172A;
+  --clr-text-dim:     #64748B;
+  --clr-placeholder:  #CBD5E1;
+  --clr-danger:       #DC2626;
+  --clr-success:      #059669;
+  --clr-warning:      #F59E0B;
+  --clr-input-bg:     #FFFFFF;
+  --clr-input-br:     rgba(8, 145, 178, 0.2);
+  --clr-card-br:      rgba(8, 145, 178, 0.1);
+  --radius-card:      16px;
+  --radius-input:     12px;
+  --radius-btn:       9999px;
+  --shadow-card:      0 4px 16px rgba(8, 145, 178, 0.08);
+  --transition:       0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* ---- Auth Layout ---- */
+.auth-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--clr-bg-page);
+  color: var(--clr-text);
+  color-scheme: light;
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Nền trang — accent nhẹ (flat, không gradient) */
+.auth-page::before,
+.auth-page::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.auth-page::before {
+  width: 320px;
+  height: 320px;
+  background: rgba(8, 145, 178, 0.08);
+  top: -80px;
+  left: -80px;
+}
+.auth-page::after {
+  width: 280px;
+  height: 280px;
+  background: rgba(56, 189, 248, 0.1);
+  bottom: -60px;
+  right: -60px;
+}
+
+/* ---- Auth Card ---- */
+.auth-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 460px;
+  background: var(--clr-bg-paper);
+  border: 1px solid var(--clr-card-br);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 40px 40px 36px;
+  box-sizing: border-box;
+  animation: cardIn 0.5s cubic-bezier(0.34, 1.3, 0.64, 1) both;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(32px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---- Logo / Brand ---- */
+.auth-brand {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.auth-brand .brand-logo {
+  display: block;
+  margin: 0 auto 12px;
+}
+.auth-brand h1 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--clr-text);
+  letter-spacing: -0.02em;
+}
+.auth-brand p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--clr-text-dim);
+}
+
+/* ---- Divider ---- */
+.auth-divider {
+  border: none;
+  border-top: 1px solid var(--clr-card-br);
+  margin: 24px 0;
+}
+
+/* ---- Form ---- */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--clr-text-dim);
+  letter-spacing: 0.3px;
+}
+
+.form-group .input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-group .input-icon {
+  position: absolute;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-text-dim);
+  pointer-events: none;
+  transition: color var(--transition);
+}
+.form-group .input-icon svg {
+  font-size: 20px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px 12px 40px;
+  background-color: var(--clr-input-bg);
+  border: 1px solid var(--clr-input-br);
+  border-radius: var(--radius-input);
+  color: var(--clr-text);
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+  box-sizing: border-box;
+}
+.form-group input:focus {
+  border-color: var(--clr-primary);
+  background-color: var(--clr-bg-paper);
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.2);
+}
+.form-group .input-wrapper:focus-within .input-icon,
+.form-group .input-wrapper:focus-within .input-icon svg {
+  color: var(--clr-primary);
+}
+.form-group input::placeholder {
+  color: var(--clr-placeholder);
+  opacity: 1;
+  -webkit-text-fill-color: var(--clr-placeholder);
+}
+.form-group input::-webkit-input-placeholder {
+  color: var(--clr-placeholder);
+  -webkit-text-fill-color: var(--clr-placeholder);
+}
+.form-group input::-moz-placeholder {
+  color: var(--clr-placeholder);
+  opacity: 1;
+}
+
+/* Password show/hide */
+.form-group .input-wrapper.has-toggle input {
+  padding-right: 42px;
+}
+.form-group .input-toggle {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--clr-text-dim);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: color var(--transition), background var(--transition);
+}
+.form-group .input-toggle:hover {
+  color: var(--clr-primary);
+  background: rgba(8, 145, 178, 0.08);
+}
+.form-group .input-toggle svg {
+  font-size: 20px;
+}
+.form-group .input-wrapper.has-toggle:focus-within .input-toggle {
+  color: var(--clr-primary);
+}
+
+/* Remember me + forgot row */
+.auth-form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+  margin-bottom: 2px;
+  flex-wrap: wrap;
+}
+.auth-remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--clr-text-dim);
+  cursor: pointer;
+  user-select: none;
+}
+.auth-remember input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--clr-primary);
+  cursor: pointer;
+}
+.auth-form-options .forgot-link {
+  margin-top: 0;
+  text-align: right;
+}
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 100px var(--clr-input-bg) inset;
+  -webkit-text-fill-color: var(--clr-text);
+  caret-color: var(--clr-text);
+}
+
+/* No-icon variant */
+.form-group input.no-icon { padding-left: 14px; }
+
+/* Input with icon inside wrapper */
+.input-wrapper input {
+  padding-left: 44px !important;
+}
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.55;
+  cursor: pointer;
+}
+
+/* ---- Error / Alert Messages ---- */
+.field-error {
+  font-size: 12px;
+  color: var(--clr-danger);
+  margin: 0;
+  padding-left: 2px;
+}
+
+.form-alert {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  animation: alertIn 0.3s ease;
+}
+@keyframes alertIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.form-alert.error {
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  color: var(--clr-danger);
+}
+.form-alert.success {
+  background: rgba(5, 150, 105, 0.08);
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  color: var(--clr-success);
+}
+
+/* ---- Forgot Password ---- */
+.forgot-link {
+  text-align: right;
+  margin-top: -8px;
+}
+.forgot-link a {
+  font-size: 12px;
+  color: var(--clr-secondary-dark);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.forgot-link a:hover { color: var(--clr-primary); }
+
+/* ---- Buttons ---- */
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: var(--clr-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: background-color var(--transition), opacity var(--transition);
+  box-shadow: none;
+  letter-spacing: 0;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--clr-primary-dark);
+}
+.btn-primary:active:not(:disabled) { transform: translateY(0); }
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  color: var(--clr-secondary-dark);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid rgba(2, 132, 199, 0.35);
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+.btn-secondary:hover {
+  background: rgba(56, 189, 248, 0.1);
+  border-color: var(--clr-secondary);
+}
+
+/* ---- Auth Footer Links ---- */
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13.5px;
+  color: var(--clr-text-dim);
+}
+.auth-footer a {
+  color: var(--clr-secondary-dark);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--transition);
+}
+.auth-footer a:hover { color: var(--clr-primary); }
+
+/* ---- OTP Input Grid ---- */
+.otp-grid {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 8px 0;
+}
+.otp-input {
+  width: 52px;
+  height: 60px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  background: var(--clr-input-bg);
+  border: 2px solid var(--clr-input-br);
+  border-radius: 12px;
+  color: var(--clr-text);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition), transform var(--transition);
+  caret-color: var(--clr-primary);
+}
+.otp-input:focus {
+  border-color: var(--clr-primary);
+  background: var(--clr-bg-paper);
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.2);
+  transform: scale(1.04);
+}
+.otp-input.filled {
+  border-color: var(--clr-primary);
+  color: var(--clr-primary-dark);
+}
+
+/* ---- OTP Timer ---- */
+.otp-timer {
+  text-align: center;
+  font-size: 13px;
+  color: var(--clr-text-dim);
+  margin-top: 4px;
+}
+.otp-timer .time-display {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--clr-accent);
+  display: block;
+  margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
+}
+.otp-timer .time-display.expired { color: var(--clr-danger); }
+
+.otp-email-hint {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--clr-text-dim);
+  margin-bottom: 4px;
+}
+.otp-email-hint span {
+  color: var(--clr-primary);
+  font-weight: 600;
+}
+
+/* ---- Spinner ---- */
+.btn-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btnSpin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes btnSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 480px) {
+  .auth-card { padding: 28px 20px 24px; }
+  .otp-input { width: 42px; height: 50px; font-size: 20px; }
+}
